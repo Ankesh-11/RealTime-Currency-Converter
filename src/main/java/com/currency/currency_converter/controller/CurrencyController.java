@@ -17,17 +17,14 @@ public class CurrencyController {
     @Autowired
     private CurrencyService currencyService;
 
-    // Home Page or Currency Conversion Form
     @GetMapping("/convert")
     public String showCurrencyConverterPage(Model model) {
-        // Add list of available currencies for dropdown
         AllCurrencies response = currencyService.getAvailableCurrencies();
         model.addAttribute("currencies", response.getConversion_rates().keySet());
-        model.addAttribute("transaction", new TransactionRequest()); // For form binding
-        return "currency-converter"; // Thymeleaf template for currency conversion
+        model.addAttribute("transaction", new TransactionRequest());
+        return "currency-converter";
     }
 
-    // Handle Conversion
     @PostMapping("/convert")
     public String convertCurrency(@ModelAttribute TransactionRequest request, Model model) {
         TransactionResponse convertedTransaction = currencyService.convertCurrency(request);
@@ -37,7 +34,6 @@ public class CurrencyController {
         return "currency-converter";
     }
 
-    // Historical Exchange Rates Page
     @GetMapping("/historical-rates")
     public String getHistoricalRates(
             @RequestParam(required = false) String date,
@@ -54,10 +50,9 @@ public class CurrencyController {
             model.addAttribute("totalPages", historicalRates.getTotalPages());
             model.addAttribute("pageSize", pageSize);
         }
-        return "historical-rates"; // Thymeleaf template for historical rates
+        return "historical-rates";
     }
 
-    // View All Converted Transactions
     @GetMapping("/convertedCurrency")
     public String getConvertedCurrencies(
             @RequestParam(defaultValue = "1") int pageNumber,
@@ -67,6 +62,6 @@ public class CurrencyController {
         model.addAttribute("transactions", allConvertedCurrencies);
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        return "converted-currencies"; // Thymeleaf template for converted currencies
+        return "converted-currencies";
     }
 }
