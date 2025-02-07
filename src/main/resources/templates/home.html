@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{website.title}">Currency Converter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Navbar with Language Selection -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" th:text="#{website.title}">Currency Converter</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" th:text="#{menu.home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/currency/convert}" th:text="#{menu.convert}">Convert Currency</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/currency/historical-rates}" th:text="#{menu.history}">Historical Rates</a>
+                </li>
+            </ul>
+
+            <!-- Language Selection Dropdown -->
+            <form method="get" action="?" class="d-flex ms-3">
+                <label for="lang" class="text-light me-2" th:text="#{menu.language}">Select Language:</label>
+                <select id="lang" name="lang" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <!-- Default selected option -->
+                    <option value="en" th:selected="${#locale.getLanguage() == 'en'}" th:text="'English'"></option>
+                    <option value="fr" th:selected="${#locale.getLanguage() == 'fr'}" th:text="'Français'"></option>
+                    <option value="es" th:selected="${#locale.getLanguage() == 'es'}" th:text="'Español'"></option>
+                    <option value="de" th:selected="${#locale.getLanguage() == 'de'}" th:text="'Deutsch'"></option>
+                    <option value="hi" th:selected="${#locale.getLanguage() == 'hi'}" th:text="'हिन्दी'"></option>
+                    <option value="zh" th:selected="${#locale.getLanguage() == 'zh'}" th:text="'中文'"></option>
+                    <option value="ar" th:selected="${#locale.getLanguage() == 'ar'}" th:text="'العربية'"></option>
+                </select>
+            </form>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container mt-5">
+    <h2 th:text="#{website.title}">Currency Converter</h2>
+    <p th:text="#{website.description}">This website allows you to convert currencies and get historical exchange rates for specific dates.</p>
+</div>
+
+</body>
+</html>
